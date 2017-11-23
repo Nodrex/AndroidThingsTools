@@ -3,6 +3,8 @@ package com.nodrex.android.things.tools;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Thing;
@@ -41,11 +43,16 @@ public class ThingsUtil {
 
     public static void log(String text){
         Log.d(TAG, text);
+        Util.log(text);
         TextView debug = ThingsView.getDebug();
         if(debug == null)return;
         int line = debug.getLineCount();
         if(line <= 0 || line > 200) debug.setText(text);
-        else debug.append("\n"+text);
+        else {
+            debug.append("\n"+text);
+            ScrollView sc = ThingsView.getScrollView();
+            if(sc != null) sc.fullScroll(View.FOCUS_DOWN);
+        }
     }
 
     /**

@@ -19,6 +19,7 @@ public class ThingsView implements View.OnClickListener{
 
     private static ThingsView thingsView;
     private static TextView debug;
+    private static ScrollView scrollView;
     private Dialog hardwareInfo;
     private Activity activity;
 
@@ -60,6 +61,14 @@ public class ThingsView implements View.OnClickListener{
         v = activity.findViewById(R.id.restartDevice);
         if(v != null) v.setOnClickListener(this);
         debug = (TextView) activity.findViewById(R.id.debug);
+        debug.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                debug.setText("");
+                return false;
+            }
+        });
+        scrollView = (ScrollView) activity.findViewById(R.id.scrollView);
         initConnection(activity);
     }
 
@@ -95,11 +104,12 @@ public class ThingsView implements View.OnClickListener{
         if(id == R.id.closeApp){
             Util.closeApp(activity);
         }else if (id == R.id.restartApp){
-            Util.restartApp(activity,activity.getClass());
+            Util.restartApp(activity,activity.getClass(),1);
         }else if(id == R.id.restartDevice){
             //ThingsUtil.restartDevice();
             //ThingsUtil.test(this);
             Util.toast(activity,"Does not works yet");
+            ThingsUtil.log("Does not works yet");
         } else {
             hardwareInfo = Util.create(activity,false,true,true,R.layout.device_hardware_information);
             TextView hardware = (TextView) hardwareInfo.findViewById(R.id.hardware);
@@ -128,6 +138,10 @@ public class ThingsView implements View.OnClickListener{
 
     public static TextView getDebug() {
         return debug;
+    }
+
+    public static ScrollView getScrollView() {
+        return scrollView;
     }
 
 }
