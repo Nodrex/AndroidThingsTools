@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:background="@android:color/black">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/black"/>
+
+    <ImageView
+        android:id="@+id/network"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:id="@+id/rpi3Ip"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@android:color/white"
+        android:layout_toRightOf="@+id/network"
+        android:textSize="35sp" />
+
+    <ImageView
+        android:id="@+id/closeApp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/close" />
+
+    <ImageView
+        android:id="@+id/restartApp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toLeftOf="@+id/closeApp"
+        android:src="@drawable/restart_app" />
+
+    <ImageView
+        android:id="@+id/restartDevice"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toLeftOf="@+id/restartApp"
+        android:src="@drawable/restart_device" />
+
+    <ImageView
+        android:id="@+id/hardwareInfo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_toLeftOf="@+id/restartDevice"
+        android:src="@drawable/info" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/network"
+        android:background="@android:color/black"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/debug"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </ScrollView>
+
+</RelativeLayout>

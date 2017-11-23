@@ -1,0 +1,3 @@
+include ':ThingsTools'
+include ':Tools'
+project(':Tools').projectDir = new File('../AndroidTools/Tools')

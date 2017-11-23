@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AndroidThingsTools.iml" filepath="$PROJECT_DIR$/AndroidThingsTools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ThingsTools/ThingsTools.iml" filepath="$PROJECT_DIR$/ThingsTools/ThingsTools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../AndroidTools/Tools/Tools.iml" filepath="$PROJECT_DIR$/../AndroidTools/Tools/Tools.iml" />
+    </modules>
+  </component>
+</project>
