@@ -108,7 +108,6 @@ public class ThingsView implements View.OnClickListener{
         }else if(id == R.id.restartDevice){
             //ThingsUtil.restartDevice();
             //ThingsUtil.test(this);
-            Util.toast(activity,"Does not works yet");
             ThingsUtil.log("Does not works yet");
         } else {
             hardwareInfo = Util.create(activity,false,true,true,R.layout.device_hardware_information);
