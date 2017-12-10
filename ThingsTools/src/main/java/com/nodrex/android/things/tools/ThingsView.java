@@ -3,8 +3,10 @@ package com.nodrex.android.things.tools;
 import android.app.Activity;
 import android.app.Dialog;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -53,14 +55,26 @@ public class ThingsView implements View.OnClickListener{
 
     private void initViews(Activity activity) throws NullPointerException{
         View v =  activity.findViewById(R.id.hardwareInfo);
-        if(v != null) v.setOnClickListener(this);
+        if(v != null) {
+            v.setOnClickListener(this);
+            //v.setTooltipText("Hardware Info");
+        }
         v = activity.findViewById(R.id.closeApp);
-        if(v != null)v.setOnClickListener(this);
+        if(v != null){
+            v.setOnClickListener(this);
+            //v.setTooltipText("Close App");
+        }
         v = activity.findViewById(R.id.restartApp);
-        if(v != null) v.setOnClickListener(this);
+        if(v != null) {
+            v.setOnClickListener(this);
+            //v.setTooltipText("Restart App");
+        }
         v = activity.findViewById(R.id.restartDevice);
-        if(v != null) v.setOnClickListener(this);
-        debug = (TextView) activity.findViewById(R.id.debug);
+        if(v != null) {
+            v.setOnClickListener(this);
+            //v.setTooltipText("Restart Device");
+        }
+        debug = activity.findViewById(R.id.debug);
         debug.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -68,7 +82,7 @@ public class ThingsView implements View.OnClickListener{
                 return false;
             }
         });
-        scrollView = (ScrollView) activity.findViewById(R.id.scrollView);
+        scrollView = activity.findViewById(R.id.scrollView);
         initConnection(activity);
     }
 
@@ -86,6 +100,7 @@ public class ThingsView implements View.OnClickListener{
                     break;
             }
             rpi3ip.append(Util.getLocalIpAddress());
+            ThingsUtil.detectGlobalIp(rpi3ip);
         }else rpi3ip.setText("There is no network connection");
     }
 
@@ -107,10 +122,14 @@ public class ThingsView implements View.OnClickListener{
             Util.restartApp(activity,activity.getClass(),1);
         }else if(id == R.id.restartDevice){
             //ThingsUtil.restartDevice();
-            //ThingsUtil.test(this);
-            ThingsUtil.log("Does not works yet");
+            ThingsUtil.test(activity);
+            //ThingsUtil.log("Restart Device does not works yet :(");
         } else {
-            hardwareInfo = Util.create(activity,false,true,true,R.layout.device_hardware_information);
+            hardwareInfo = Util.create(activity,true,true,true,R.layout.device_hardware_information);
+            Util.setGravity(hardwareInfo,Gravity.TOP);
+            Window window = hardwareInfo.getWindow();
+            WindowManager.LayoutParams param = window.getAttributes();
+            param.x = (int)(activity.findViewById(R.id.hardwareInfo).getX() - Util.dpToPixel(activity,250));
             TextView hardware = (TextView) hardwareInfo.findViewById(R.id.hardware);
             hardware.setText("");
             String data = Util.getDeviceName();

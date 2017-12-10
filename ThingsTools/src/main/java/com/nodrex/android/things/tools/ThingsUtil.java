@@ -1,18 +1,20 @@
 package com.nodrex.android.things.tools;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.things.pio.Gpio;
 import com.google.android.things.pio.PeripheralManagerService;
 import com.nodrex.android.tools.Util;
 
 import java.io.IOException;
+import java.util.Date;
 
 import static java.lang.Runtime.getRuntime;
 
@@ -36,12 +38,17 @@ public class ThingsUtil {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
-                if(textView != null) textView.setText(ip);
+                log("Global ip: " + ip);
+                if(textView != null) {
+                    String globalIp = "\t(" + ip + ")";
+                    textView.append(globalIp);
+                }
             }
         }.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public static void log(String text){
+        text = new Date() + " : " + text;
         Log.d(TAG, text);
         Util.log(text);
         TextView debug = ThingsView.getDebug();
@@ -109,8 +116,12 @@ public class ThingsUtil {
 
     public static void test(Activity activity){
         try {
-            /*PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
-            pm.reboot(null);*/
+            if(activity == null){
+                log("activity is null");
+                return;
+            }
+            PowerManager pm = (PowerManager) activity.getSystemService(Context.POWER_SERVICE);
+            pm.reboot(null);
             //com.google.android.things.devicemanagement.DeviceManager.reboot();
         } catch (Exception e) {
             log("There was some problem while trying to restart (PowerManager reboot) device: " + e.toString());
